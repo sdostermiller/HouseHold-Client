@@ -1,12 +1,12 @@
 import React from "react";
 import { ILogin } from "../../Interfaces";
-import "./Login.css";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
 
 interface LoginProps {
   clearToken(): void;
   sessionToken: string;
   updateToken(newToken: string): string;
-
 }
 
 export default class Login extends React.Component<LoginProps, ILogin> {
@@ -15,7 +15,6 @@ export default class Login extends React.Component<LoginProps, ILogin> {
     this.state = {
       email: "",
       passwordhash: "",
- 
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sendAccount = this.sendAccount.bind(this);
@@ -29,7 +28,7 @@ export default class Login extends React.Component<LoginProps, ILogin> {
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http:localhost3050/user/login`, {
+    fetch(`http://localhost3050/user/login/`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
@@ -68,24 +67,30 @@ export default class Login extends React.Component<LoginProps, ILogin> {
             }}
           >
             <div className="FormGroup">
-              <label htmlFor="email">Email</label>
-              <input
-                onChange={(e) => this.setState({ email: e.target.value}) }
-                name="email"
-                value={email}
-              />
+              <span className="p-float-label">
+                <InputText
+                  onChange={(e) => this.setState({ email: e.target.value })}
+                  name="email"
+                  value={email}
+                />
+                <label htmlFor="email">Email</label>
+              </span>
             </div>
             <div className="FormGroup">
-              <label htmlFor="password">Password</label>
-              <input
-                onChange={(e) => this.setState({ passwordhash: e.target.value}) }
-                name="password"
-                value={passwordhash}
-              />
+              <span className="p-float-label">
+                <InputText
+                  onChange={(e) =>
+                    this.setState({ passwordhash: e.target.value })
+                  }
+                  name="password"
+                  value={passwordhash}
+                />
+                <label htmlFor="password">Password</label>
+              </span>
             </div>
             <br />
 
-            <button type="submit">Login</button>
+            <Button label="Login" icon="pi pi-user" type="submit" />
           </form>
           <hr />
           Need to create an account? <a href="/register">Register</a>

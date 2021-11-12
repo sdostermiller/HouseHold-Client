@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import ItemCreate from './components/Item/ItemCreate';
+import HouseCreate from './components/House/HouseCreate';
+import ListCreate from './components/List/ListCreate';
 import { IApp } from './Interfaces';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/tailwind-light/theme.css';
 
 interface AppProps {
-  sessionToken: string,
+
 }
 
 interface AppState {
@@ -56,6 +62,9 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
             <h1>Just Testing Home Page.</h1>
             <Login clearToken={this.clearToken} updateToken={this.updateToken} sessionToken={this.state.sessionToken}  />
             <Register sessionToken={this.state.sessionToken} updateToken={this.updateToken} />
+            <ItemCreate />
+            <HouseCreate />
+            <ListCreate />
           </div>
         )
       }
