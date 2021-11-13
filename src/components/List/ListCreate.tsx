@@ -3,6 +3,7 @@ import { IList, ListDrop } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
+import APIURL from '../../helpers/environment';
 
 interface ListProps {}
 
@@ -45,7 +46,7 @@ export default class ListCreate extends React.Component<
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:3050/list/create`, {
+    fetch(`${APIURL}/list/create`, {
       method: "POST",
       body: JSON.stringify({
         itemName: this.state.listName,

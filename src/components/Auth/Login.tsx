@@ -2,6 +2,7 @@ import React from "react";
 import { ILogin } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import APIURL from '../../helpers/environment';
 
 interface LoginProps {
   clearToken(): void;
@@ -31,7 +32,7 @@ export default class Login extends React.Component<
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:3050/user/login`, {
+    fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,

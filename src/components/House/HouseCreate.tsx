@@ -2,6 +2,7 @@ import React from "react";
 import { IHouse } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import APIURL from '../../helpers/environment';
 
 interface HouseProps {}
 
@@ -29,7 +30,7 @@ componentDidMount() {
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:3050/house/create`, {
+    fetch(`${APIURL}/house/create`, {
       method: "POST",
       body: JSON.stringify({
         Name: this.state.houseName,

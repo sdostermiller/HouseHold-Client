@@ -2,6 +2,7 @@ import React, {ChangeEvent} from "react";
 import { IRegister, RegisterAlerts } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import APIURL from '../../helpers/environment';
 
 type RegisterProps = {
   updateToken(newToken: string): string;
@@ -56,7 +57,7 @@ export default class Register extends React.Component<
     if (emailEx.test(this.state.email) !== true) {
       return this.emailAlert();
     }
-    fetch(`http://localhost:3050/user/register`, {
+    fetch(`${APIURL}/user/register`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,

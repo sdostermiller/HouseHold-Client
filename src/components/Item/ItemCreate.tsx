@@ -4,6 +4,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { ToggleButton } from "primereact/togglebutton";
 import { Button } from "primereact/button";
+import APIURL from '../../helpers/environment';
 
 interface ItemProps {
   // sessionToken: string
@@ -38,7 +39,7 @@ export default class ItemCreate extends React.Component<
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:3050/item/create`, {
+    fetch(`${APIURL}/item/create`, {
       method: "POST",
       body: JSON.stringify({
         itemName: this.state.itemName,

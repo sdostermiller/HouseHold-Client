@@ -1,5 +1,6 @@
 import React from "react";
 import { IFindUser } from "../../Interfaces";
+import APIURL from '../../helpers/environment';
 // import ListCreate from '../List/ListCreate';
 
 interface FindUserProps {}
@@ -36,7 +37,7 @@ export default class FindUser extends React.Component<
     // console.log(userId)
     // console.log(sessionToken);
 
-    fetch(`http://localhost:3050/User/${userId}`, {
+    fetch(`${APIURL}/User/${userId}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

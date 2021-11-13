@@ -1,6 +1,7 @@
 import React from 'react';
 import { IHouseList } from "../../Interfaces"
 import { Dropdown } from 'primereact/dropdown';
+import APIURL from '../../helpers/environment';
 
 interface HouseListProps {
 
@@ -35,7 +36,7 @@ export default class HouseList extends React.Component <
 
         console.log("Test House List", userId, sessionToken);
 
-        fetch(`http://localhost:3050/house/all`, {
+        fetch(`${APIURL}/house/all`, {
             method: "GET",
             headers: new Headers({
                 'Content-Type': 'application/json',
