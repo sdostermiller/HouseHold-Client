@@ -8,7 +8,8 @@ export interface IApp {
 
 export interface ILogin {
     email: string,
-    passwordhash: string
+    passwordhash: string,
+    sessionToken: string,
 }
 
 export interface IRegister {
@@ -19,7 +20,7 @@ export interface IRegister {
     email: string,
     userRole: string,
     passwordhash: string,
-    houseId: string,
+    houseId: string | null,
     sessionToken: string,
 }
 
@@ -39,7 +40,8 @@ export interface ICreateItem {
     itemQuantity: number,
     itemUrgent: boolean,
     itemFavorite: boolean,
-
+    userId: string | null,
+    sessionToken: string | null
 }
 
 export interface IItem {
@@ -47,21 +49,27 @@ export interface IItem {
 }
 
 export interface IHouseList {
-    // houseName: string,
-    // houseId: string,
-    // houses: [],
-    // house: []
+    houseName: string,
+    houseId: string | null,
+    userId: string | null,
+    sessionToken: string | null,
+    housedata: string[] | null
+
 }
 
 export interface IList {
     listName: string,
     listType: string,
     selectedType: string | null,
-    types: string[]
+    types: string[],
+    sessionToken: string | null,
+    userId: string | null
 }
 
 export interface IHouse {
-    houseName: string
+    houseName: string | null,
+    userId: string | null,
+    sessionToken: string | null,
 }
 
 export interface ListDrop {
@@ -92,5 +100,18 @@ export interface IUserAccount {
 }
 
 export interface INavbar {
-    
+
+}
+
+export interface IFindUser {
+    userId: string | null,
+    sessionToken: string | null
+    email: string,
+    firstName: string,
+    lastName: string,
+    userName: string,
+    houseId: string | null,
+    houseName: string | null,
+    passwordhash: string,
+    userRole: string | null
 }

@@ -4,6 +4,8 @@ import Register from './components/Auth/Register';
 import ItemCreate from './components/Item/ItemCreate';
 import HouseCreate from './components/House/HouseCreate';
 import ListCreate from './components/List/ListCreate';
+import FindUser from './components/Auth/FindUser';
+import HouseList from './components/House/HouseList';
 import { IApp } from './Interfaces';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -40,7 +42,7 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
     }
 
     updateToken = (newToken: string): string => {
-      localStorage.setItem('token', newToken);
+      localStorage.setItem('sessionToken', newToken);
       this.setState({
         sessionToken: newToken
       })
@@ -49,6 +51,8 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
       )
     }
 
+    
+    
     clearToken = () => {
       localStorage.clear();
       this.setState({
@@ -57,14 +61,17 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
     };
 
     render(){
+      
       return(
           <div className="App">
             <h1>Just Testing Home Page.</h1>
-            <Login clearToken={this.clearToken} updateToken={this.updateToken} sessionToken={this.state.sessionToken}  />
-            <Register sessionToken={this.state.sessionToken} updateToken={this.updateToken} />
+            <Login clearToken={this.clearToken} updateToken={this.updateToken}  />
+            <Register updateToken={this.updateToken} />
             <ItemCreate />
             <HouseCreate />
             <ListCreate />
+            <FindUser />
+            <HouseList />
           </div>
         )
       }

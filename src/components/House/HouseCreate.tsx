@@ -11,16 +11,32 @@ export default class HouseCreate extends React.Component<HouseProps, IHouse> {
 
     this.state = {
       houseName: "",
+      userId: '', 
+      sessionToken: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+componentDidMount() {
+  const userId = localStorage.getItem('UserId');
+  const sessionToken = localStorage.getItem('sessionToken');
+  this.setState({
+    userId,
+    sessionToken
+    
+  });
+  console.log("Create House Component mounted:", userId, sessionToken)
+}
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost3050/house/create`, {
+    fetch(`http://localhost:3050/house/create`, {
       method: "POST",
       body: JSON.stringify({
-        itemName: this.state.houseName,
+        Name: this.state.houseName,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.state.sessionToken}`
       }),
     })
       .then((response) => response.json())
@@ -47,10 +63,10 @@ export default class HouseCreate extends React.Component<HouseProps, IHouse> {
           >
             <div className="FormGroup">
               <span className="p-float-label">
-                <InputText
-                  value={houseName}
-                  name="houseName"
+              <InputText
                   onChange={(e) => this.setState({ houseName: e.target.value })}
+                  name="houseName"
+                  // value={houseName}
                 />
 
                 <label htmlFor="itemName">Item Name</label>

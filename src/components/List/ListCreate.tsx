@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { IList, ListDrop } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
@@ -6,34 +6,54 @@ import { Button } from "primereact/button";
 
 interface ListProps {}
 
-export default class ListCreate extends React.Component<ListProps, IList, ListDrop> {
-    constructor(props: ListProps) {
-        super(props);
+export default class ListCreate extends React.Component<
+  ListProps,
+  IList,
+  ListDrop
+> {
+  constructor(props: ListProps) {
+    super(props);
 
-        this.state = {
-            listName: '',
-            listType: '',
-            selectedType: null,
-            types: [ 
-                'Grocery',
-                'Hardware',
-                'Clothing',
-                'Pet Supplies',
-                'Home Goods',
-                'Miscellaneous'
-                ]   
-            };
-        
-            this.handleSubmit = this.handleSubmit.bind(this);
-            this.onTypeChange = this.onTypeChange.bind(this);
-        }
+    this.state = {
+      listName: "",
+      listType: "",
+      userId: "",
+      sessionToken: "",
+      selectedType: null,
+      types: [
+        "Grocery",
+        "Hardware",
+        "Clothing",
+        "Pet Supplies",
+        "Home Goods",
+        "Miscellaneous",
+      ],
+    };
 
-handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onTypeChange = this.onTypeChange.bind(this);
+  }
+
+  componentDidMount() {
+    const userId = localStorage.getItem("UserId");
+    const sessionToken = localStorage.getItem("sessionToken");
+    this.setState({
+      userId,
+      sessionToken,
+    });
+  }
+
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost3050/list/create`, {
+    fetch(`http://localhost:3050/list/create`, {
       method: "POST",
       body: JSON.stringify({
-        itemName: this.state.listName
+        itemName: this.state.listName,
+        listType: this.state.listType
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.state.sessionToken}`
       }),
     })
       .then((response) => response.json())
@@ -41,14 +61,14 @@ handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         console.log(listData);
         this.setState({
           listName: this.state.listName,
-          listType: this.state.listType
+          listType: this.state.listType,
         });
       })
       .catch((err) => console.log(err));
   };
 
-  onTypeChange(e:any) {
-      this.setState({ selectedType: e.listType });
+  onTypeChange(e: any) {
+    this.setState({ selectedType: e.listType });
   }
 
   render() {
@@ -75,12 +95,17 @@ handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
               </span>
             </div>
             <div className="listType">
-                <Dropdown value={this.state.selectedType} options={this.state.types} onChange={this.onTypeChange} optionLabel="listType" placeholder="Select a List Type" />
-            
-             </div>
+              <Dropdown
+                value={this.state.selectedType}
+                options={this.state.types}
+                onChange={this.onTypeChange}
+                optionLabel="listType"
+                placeholder="Select a List Type"
+              />
+            </div>
             <br />
 
-            <Button  label="Create!" icon="pi pi-list" type="submit" />
+            <Button label="Create!" icon="pi pi-list" type="submit" />
           </form>
         </div>
       </div>

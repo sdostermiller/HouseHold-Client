@@ -6,54 +6,60 @@ interface HouseListProps {
 
 }
 
-export default class HouseList extends React.Component {/*<
-    // HouseListProps,
-    // IHouseList
-    // >  {
-    // constructor(props: HouseListProps) {
-    //     super(props);
+export default class HouseList extends React.Component <
+    HouseListProps,
+    IHouseList
+    >  {
+    constructor(props: HouseListProps) {
+        super(props);
 
-    //     this.state = {
-            // houses: [],
-    //         // houseName: '',
-    //         // houseId: '',
-    //         // house: []
-    //     };
+        this.state = {
+            houseName: '',
+            houseId: '',
+            userId: '',
+            sessionToken: '',
+            housedata: []
+    
+        };
 
      
-    // }
+    }
 
-    // componentDidMount() {
-       
+    componentDidMount() {
+        const userId = localStorage.getItem("UserId");
+        const sessionToken = localStorage.getItem("sessionToken");
+        this.setState({
+          userId,
+          sessionToken,
+        });
 
-        // fetch
-        // ('http://localhost3000/house/all', {
-        //     method: "GET",
-        //     body: JSON.stringify({
-        //         houseName: this.state.houseName,
-        //         houseId: this.state.houseId
-        //     }),
-        // })
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     let housedata = data.map(house => {
-        //         return {value: house, display: house}
-        //     })
-        //     this.setState({
-        //         houses:[{value: '', display: }].concat(housedata)
-        //     });
+        console.log("Test House List", userId, sessionToken);
 
-                
-              
-        //     })
-        //     console.log(housedata);
-        //     })
-        //     .catch((err) => console.log(err));
-        }
+        fetch(`http://localhost:3050/house/all`, {
+            method: "GET",
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionToken}`
+              }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("test fetch house list", data)
+            })
+            
+
+           
+        
+        .catch((err) => console.log(err));
+
+            console.log(this.state.housedata);
+            }
+            
+        
 
         
     
-    */
+    
 
     render() {
         return (

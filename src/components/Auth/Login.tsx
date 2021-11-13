@@ -5,30 +5,33 @@ import { Button } from "primereact/button";
 
 interface LoginProps {
   clearToken(): void;
-  sessionToken: string;
   updateToken(newToken: string): string;
 }
 
-export default class Login extends React.Component<LoginProps, ILogin> {
+export default class Login extends React.Component<
+  LoginProps, 
+  ILogin
+> {
   constructor(props: LoginProps) {
     super(props);
     this.state = {
       email: "",
       passwordhash: "",
+      sessionToken: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sendAccount = this.sendAccount.bind(this);
   }
 
   sendAccount() {
-    setTimeout(function () {
-      window.location.href = "./myhouse";
-    }, 1000);
+    // setTimeout(function () {
+    //   window.location.href = "./myhouse";
+    // }, 1000);
   }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost3050/user/login/`, {
+    fetch(`http://localhost:3050/user/login`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
@@ -40,18 +43,26 @@ export default class Login extends React.Component<LoginProps, ILogin> {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.user);
         this.setState({
           email: this.state.email,
           passwordhash: this.state.passwordhash,
         });
+        localStorage.setItem('UserId', data.user.id);
+        console.log("sessionToken:", data.sessionToken);
         this.props.updateToken(data.sessionToken);
+        this.setState({
+          sessionToken: data.sessionToken
+        });
       })
       .catch((err) => console.log(err));
     return (
-      console.log("testing login"), this.state.email, this.state.passwordhash
+      console.log("testing login")
     );
   };
+
+
+
 
   render() {
     const { email, passwordhash } = this.state;

@@ -5,7 +5,9 @@ import { InputText } from "primereact/inputtext";
 import { ToggleButton } from "primereact/togglebutton";
 import { Button } from "primereact/button";
 
-interface ItemProps {}
+interface ItemProps {
+  // sessionToken: string
+}
 
 export default class ItemCreate extends React.Component<
   ItemProps,
@@ -19,9 +21,19 @@ export default class ItemCreate extends React.Component<
       itemQuantity: 1,
       itemUrgent: false,
       itemFavorite: false,
+      userId: '',
+      sessionToken: ''
    
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    const userId = localStorage.getItem('UserId');
+    const sessionToken = localStorage.getItem('sessionToken');
+    this.setState({
+      userId,
+      sessionToken
+    });
   }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +45,10 @@ export default class ItemCreate extends React.Component<
         itemQuantity: this.state.itemQuantity,
         itemUrgent: this.state.itemUrgent,
         itemFavorite: this.state.itemFavorite,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.state.sessionToken}`
       }),
     })
       .then((response) => response.json())
