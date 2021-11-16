@@ -4,7 +4,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import APIURL from '../../helpers/environment';
 
-interface HouseProps {}
+interface HouseProps {
+  sessionToken: any
+}
 
 export default class HouseCreate extends React.Component<HouseProps, IHouse> {
   constructor(props: HouseProps) {
@@ -12,8 +14,7 @@ export default class HouseCreate extends React.Component<HouseProps, IHouse> {
 
     this.state = {
       houseName: "",
-      userId: '', 
-      sessionToken: ''
+      userId: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -22,22 +23,22 @@ componentDidMount() {
   const sessionToken = localStorage.getItem('sessionToken');
   this.setState({
     userId,
-    sessionToken
     
   });
   console.log("Create House Component mounted:", userId, sessionToken)
 }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    debugger
     event.preventDefault();
     fetch(`${APIURL}/house/create`, {
       method: "POST",
       body: JSON.stringify({
-        Name: this.state.houseName,
+        houseName: this.state.houseName,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.state.sessionToken}`
+        'Authorization': `Bearer ${this.props.sessionToken}`
       }),
     })
       .then((response) => response.json())

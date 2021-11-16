@@ -49,7 +49,7 @@ export default class Login extends React.Component<
           email: this.state.email,
           passwordhash: this.state.passwordhash,
         });
-        localStorage.setItem('UserId', data.user.id);
+        // localStorage.setItem('UserId', data.user.id);
         console.log("sessionToken:", data.sessionToken);
         this.props.updateToken(data.sessionToken);
         this.setState({

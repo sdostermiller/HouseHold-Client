@@ -5,12 +5,11 @@ import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import APIURL from '../../helpers/environment';
 
-interface ListProps {}
+interface ListProps {sessionToken: string| null}
 
 export default class ListCreate extends React.Component<
   ListProps,
-  IList,
-  ListDrop
+  IList
 > {
   constructor(props: ListProps) {
     super(props);
@@ -35,26 +34,19 @@ export default class ListCreate extends React.Component<
     this.onTypeChange = this.onTypeChange.bind(this);
   }
 
-  componentDidMount() {
-    const userId = localStorage.getItem("UserId");
-    const sessionToken = localStorage.getItem("sessionToken");
-    this.setState({
-      userId,
-      sessionToken,
-    });
-  }
+  
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     fetch(`${APIURL}/list/create`, {
       method: "POST",
       body: JSON.stringify({
-        itemName: this.state.listName,
+        listName: this.state.listName,
         listType: this.state.listType
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.state.sessionToken}`
+        'Authorization': `Bearer ${this.props.sessionToken}`
       }),
     })
       .then((response) => response.json())

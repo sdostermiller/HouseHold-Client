@@ -2,7 +2,6 @@ export interface IApp {
     email: string,
     passwordhash: string,
     clearToken(): void,
-    sessionToken: string,
     handleSubmit() : void
 }
 
@@ -69,7 +68,7 @@ export interface IList {
 export interface IHouse {
     houseName: string | null,
     userId: string | null,
-    sessionToken: string | null,
+
 }
 
 export interface ListDrop {
@@ -80,7 +79,7 @@ export interface ListDrop {
 export interface IAccount {
 
 }
-
+    
 export interface IHome {
     houseName: string,
     houseId: string,
@@ -100,7 +99,7 @@ export interface IUserAccount {
 }
 
 export interface INavbar {
-
+ 
 }
 
 export interface IFindUser {

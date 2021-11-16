@@ -36,25 +36,21 @@ export default class HouseList extends React.Component <
 
         console.log("Test House List", userId, sessionToken);
 
-        fetch(`${APIURL}/house/all`, {
+        fetch(`{${APIURL}}/house/all`, {
             method: "GET",
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionToken}`
+                'Authorization': `Bearer ${this.state.sessionToken}`
               }),
         })
         .then((response) => response.json())
         .then((data) => {
             console.log("test fetch house list", data)
             })
-            
-
-           
-        
         .catch((err) => console.log(err));
 
             console.log(this.state.housedata);
-            }
+    }
             
         
 

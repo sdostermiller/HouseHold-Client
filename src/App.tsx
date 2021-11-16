@@ -1,10 +1,11 @@
 import React from 'react';
+import Navbar from './components/Navbar/Navbar';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ItemCreate from './components/Item/ItemCreate';
 import HouseCreate from './components/House/HouseCreate';
 import ListCreate from './components/List/ListCreate';
-import FindUser from './components/Auth/FindUser';
+// import FindUser from './components/Auth/FindUser';
 import HouseList from './components/House/HouseList';
 import { IApp } from './Interfaces';
 import 'primereact/resources/primereact.min.css';
@@ -30,7 +31,9 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
     this.clearToken = this.clearToken.bind(this)
   }
     
-    componentDidUpdate() {
+    componentDidMount() {
+
+      
       if(localStorage.getItem('token') && localStorage.getItem('token') !== undefined){
         let storedToken : string | null = localStorage.getItem('token');
         if (storedToken !== null && this.state.sessionToken !== storedToken){
@@ -42,7 +45,7 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
     }
 
     updateToken = (newToken: string): string => {
-      localStorage.setItem('sessionToken', newToken);
+      localStorage.setItem('token', newToken);
       this.setState({
         sessionToken: newToken
       })
@@ -65,12 +68,13 @@ export default class App extends React.Component<AppProps, AppState, IApp>{
       return(
           <div className="App">
             <h1>Just Testing Home Page.</h1>
+            <Navbar clearToken={this.clearToken} updateToken={this.updateToken} />
             <Login clearToken={this.clearToken} updateToken={this.updateToken}  />
             <Register updateToken={this.updateToken} />
             <ItemCreate />
-            <HouseCreate />
-            <ListCreate />
-            <FindUser />
+            <HouseCreate sessionToken={this.state.sessionToken} />
+            <ListCreate  sessionToken={this.state.sessionToken}/>
+            {/* <FindUser /> */}
             <HouseList />
           </div>
         )
