@@ -1,0 +1,58 @@
+.dock {
+    color: var(indigo-900);
+}
+
+.dock .dock-window {
+    width: 100%;
+    height: 450px;
+    position: relative;
+   
+}
+
+.dock .p-dock {
+    z-index: 1000;
+}
+
+
+.dock .dock-advanced .p-dialog-mask, .dock-demo .dock-advanced .p-galleria-mask, .dock-demo .dock-advanced .p-galleria-mask .p-galleria-item-nav, .dock-demo .dock-advanced .p-toast {
+    position: absolute;
+}
+
+.dock .dock-advanced .p-dialog .p-tree {
+    height: 100%;
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
+
+
+.dock .p-menubar {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0;
+   
+}
+.dock .p-menubar .menubar-root {
+    font-weight: bold;
+    padding: 0 1rem;
+}
+.dock .p-menubar .p-menuitem-link {
+    padding: 0.5rem 0.75rem;
+}
+.dock .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
+    padding: 0.5rem 0.75rem;
+}
+.dock .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link > .p-submenu-icon {
+    display: none;
+}
+.dock .p-menubar .p-menubar-end span, .dock .p-menubar .p-menubar-end i {
+    padding: 0 0.75rem;
+}
+.dark-tooltip .p-tooltip .p-tooltip-arrow {
+    border-top-color: var(--surface-900);
+}
+.dark-tooltip .p-tooltip .p-tooltip-text {
+    background-color: var(--surface-900);
+}
+

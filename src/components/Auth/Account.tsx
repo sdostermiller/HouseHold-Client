@@ -38,12 +38,16 @@ export default class Account extends React.Component<AccountProps, AccountTypes>
              {this.state.shouldRedirect ?
              
               <Redirect to ="/login" /> : 
-              <div>
-                  <h1>My Account</h1>
-                  <UserAccount sessionToken={this.props.sessionToken} />
+              
+                  <UserAccount  sessionToken={this.props.sessionToken}/>
                   
-                  </div>
+                 
             }  
+            <div>
+                  <br />
+                  <br />
+                  <br /><br />
+                  <h1>My Account</h1> </div>
          </div>
      );
     }

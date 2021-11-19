@@ -1,9 +1,10 @@
 import React from 'react'
 import { IHome } from '../../Interfaces';
+import OurLists from '../List/OurLists';
 
 
 interface HouseProps {
-    sessionToken: string
+    sessionToken: string | null
 }
 
 export default class MyHouse extends React.Component<HouseProps, IHome> {
@@ -43,7 +44,8 @@ export default class MyHouse extends React.Component<HouseProps, IHome> {
 render() {
     return(
         <div>
-            
+            <h1>My HouseHold</h1>
+            <OurLists sessionToken={this.props.sessionToken} />
         </div>
     )
 }
