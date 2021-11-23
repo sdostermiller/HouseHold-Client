@@ -59,6 +59,7 @@ export default class App extends React.Component<AppProps, AppState, IApp> {
     this.setState({
       sessionToken: "",
     });
+    window.location.href="/";
   };
 
   render() {
