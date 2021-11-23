@@ -1,9 +1,12 @@
 import React from "react";
 import { IFindUser } from "../../Interfaces";
+import HouseMembers from '../House/HouseMembers'
 import APIURL from '../../helpers/environment';
 // import ListCreate from '../List/ListCreate';
 
-interface FindUserProps {}
+interface FindUserProps {
+  sessionToken: string | null
+}
 
 export default class FindUser extends React.Component<
   FindUserProps,
@@ -20,51 +23,51 @@ export default class FindUser extends React.Component<
       lastName: "",
       userName: "",
       houseId: "",
-      houseName: "",
       passwordhash: "",
       userRole: "",
+      userData: {}
     };
   }
 
   componentDidMount() {
-    const userId = localStorage.getItem("UserId");
-    const sessionToken = localStorage.getItem("sessionToken");
-    this.setState({
-      userId,
-      sessionToken,
-    });
+ 
 
-    // console.log(userId)
-    // console.log(sessionToken);
+    let sessionToken = 
+    (this.props.sessionToken ?  this.props.sessionToken : localStorage.getItem('token'));
 
-    fetch(`${APIURL}/User/${userId}`, {
+    fetch(`${APIURL}/User/me`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionToken}`,
+        'Authorization': `Bearer ${sessionToken}`,
       }),
     })
       .then((response) => response.json())
       .then((userData) => {
         console.log("test fetch find user", userData);
         this.setState({
-          email: this.state.email,
-          firstName: this.state.firstName,
-          userId: this.state.userId,
-          lastName: this.state.lastName,
-          userName: this.state.userName,
-          houseId: this.state.houseId,
-          houseName: this.state.houseName,
-          passwordhash: this.state.passwordhash,
-          userRole: this.state.userRole,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
+          userData: userData,
+          email: userData.email,
+          firstName: userData.firstName,
+          userId: userData.userId,
+          lastName: userData.lastName,
+          userName: userData.userName,
+          houseId: userData.houseId,
+          passwordhash: userData.passwordhash,
+          userRole: userData.userRole
+        
+          
+        })
+      }).catch((err) => console.log(err)); 
+console.log("test after fetch houseId", this.state.houseId);
+
+    }
 
   render() {
-    // const { email, firstName, userId, lastName, userName, houseId, houseName, passwordhash, userRole } = this.state
+    
 
-    return <div></div>;
+    return <div>
+        <HouseMembers sessionToken={this.props.sessionToken}  />
+    </div>;
   }
 }

@@ -14,7 +14,7 @@ import { HouseDock } from "./components/Docks/HouseDock";
 import { IApp } from "./Interfaces";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import "primereact/resources/themes/rhea/theme.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 
 interface AppProps {}
 
@@ -81,9 +81,9 @@ export default class App extends React.Component<AppProps, AppState, IApp> {
             <ListCreate  sessionToken={this.state.sessionToken}/>
             <FindUser /> */} 
         {/*  */}
-
+          <div className="main-window">
         <Outlet />
-        {/* <Outlet /> */}
+        </div>
       </div>
     );
   }

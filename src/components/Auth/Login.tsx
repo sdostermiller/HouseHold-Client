@@ -2,7 +2,7 @@ import React from "react";
 import { ILogin } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import APIURL from '../../helpers/environment';
+import  APIURL  from '../../helpers/environment';
 
 interface LoginProps {
   clearToken(): void;
@@ -25,9 +25,9 @@ export default class Login extends React.Component<
   }
 
   sendAccount() {
-    // setTimeout(function () {
-    //   window.location.href = "./myhouse";
-    // }, 1000);
+    setTimeout(function () {
+      window.location.href = "./";
+    }, 1000);
   }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

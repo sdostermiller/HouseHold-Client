@@ -3,6 +3,7 @@ import { IRegister, RegisterAlerts } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import APIURL from '../../helpers/environment';
+import { Dropdown } from 'primereact/dropdown';
 
 type RegisterProps = {
   updateToken(newToken: string): string;
@@ -25,9 +26,23 @@ export default class Register extends React.Component<
       houseId: null,
       successCheck: false,
       sessionToken: "",
+      roles: [
+        {
+          label: "Guest",
+          value: "Guest"
+        },
+        {
+          label: "Member",
+          value: "Member"
+        },
+        {
+          label: "Head",
+          value: "Head"
+        }
+      ]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.sendAccount = this.sendAccount.bind(this);
+    this.sendAccount = this.sendAccount.bind(this);
   }
 
   passAlert() {
@@ -38,13 +53,11 @@ export default class Register extends React.Component<
     alert("Oops! Email format invalid! Try anything@anything.com");
   }
 
-  sendAccount = () => {
-    if (this.state.successCheck === true) {
-      setTimeout(function () {
-        window.location.href = "./account";
-      }, 1000);
-    }
-  };
+  sendAccount() {
+    setTimeout(function () {
+      window.location.href = "./";
+    }, 1000);
+  }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,8 +88,7 @@ export default class Register extends React.Component<
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // console.log("sessionToken:", data.sessionToken);
-        localStorage.setItem('UserId', data.newUser.id);
+    
         this.props.updateToken(data.sessionToken);
         this.setState({
           successCheck: true,
@@ -107,7 +119,10 @@ export default class Register extends React.Component<
         <div className="register">
           <h1>Register</h1>
           <form
-            onSubmit={(event) => {this.handleSubmit(event); this.sendAccount()}}>
+            onSubmit={(event) => {
+              this.handleSubmit(event);
+              this.sendAccount();
+              }}>
             <div className="FormGroup">
               <span className="p-float-label">
                 <InputText
@@ -132,7 +147,7 @@ export default class Register extends React.Component<
                   onChange={(e) => this.setState({ userName: e.target.value })}
                   name="userName"
                 />
-                <label htmlFor="userName">User Name</label>
+                <label htmlFor="userName">UserName</label>
               </span>
             </div>
             <div className="FormGroup">
@@ -157,12 +172,15 @@ export default class Register extends React.Component<
               </span>
             </div>
             <div className="FormGroup">
+              <div className="userRole">
               <label htmlFor="userRole">House Role</label>
-              <input
-                onChange={(e) => this.setState({ userRole: e.target.value })}
-                name="userRole"
-              />
-            </div>
+                <Dropdown value={this.state.userRole}
+                  options={this.state.roles}
+                  onChange={(e) => this.setState({ userRole: e.target.value })}
+                  optionLabel="label"
+                  optionValue="value"
+                  placeholder="Select a User Role" ></Dropdown>
+            </div></div>
 
             <br />
 

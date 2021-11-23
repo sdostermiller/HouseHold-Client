@@ -4,7 +4,7 @@ import { Dropdown } from 'primereact/dropdown';
 import APIURL from '../../helpers/environment';
 
 interface HouseListProps {
-
+    sessionToken: string | null
 }
 
 export default class HouseList extends React.Component <
@@ -19,7 +19,10 @@ export default class HouseList extends React.Component <
             houseId: '',
             userId: '',
             sessionToken: '',
-            housedata: []
+            houseList: [
+            ],
+            house: [],
+            editUserHouse: ''
     
         };
 
@@ -27,30 +30,36 @@ export default class HouseList extends React.Component <
     }
 
     componentDidMount() {
-        const userId = localStorage.getItem("UserId");
-        const sessionToken = localStorage.getItem("sessionToken");
-        this.setState({
-          userId,
-          sessionToken,
-        });
+    
+    let sessionToken = 
+        (this.props.sessionToken ?  this.props.sessionToken : localStorage.getItem('token'));
 
-        console.log("Test House List", userId, sessionToken);
+        console.log("House List Mounted", sessionToken);
 
-        fetch(`{${APIURL}}/house/all`, {
+        fetch(`${APIURL}/house/all`, {
             method: "GET",
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.state.sessionToken}`
-              }),
+                'Authorization': `Bearer ${sessionToken}`
+              })
         })
         .then((response) => response.json())
-        .then((data) => {
-            console.log("test fetch house list", data)
-            })
+        .then((allHouses) => {
+            console.log(allHouses)
+            this.setState({
+            houseList: allHouses,
+            houseName: allHouses.houseName,
+            editUserHouse: allHouses.houseName
+            });
+            allHouses.map((house: any)=> 
+                [{label: '{house.houseName}'},{value: 'house.houseName'}])
+        })
         .catch((err) => console.log(err));
 
-            console.log(this.state.housedata);
+
+        // console.log("test outside fetch", this.state.)allHouses;
     }
+    
             
         
 
@@ -61,7 +70,13 @@ export default class HouseList extends React.Component <
     render() {
         return (
             <div >
-                {/* <Dropdown value={this.state.selectedCity1} options={this.cities} onChange={this.onCityChange} optionLabel="name" placeholder="Select a City" /> */}
+                <Dropdown value={this.state.houseName} options={this.state.houseList}
+                onChange={(e) => this.setState({editUserHouse: e.target.value})}
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Select a House" ></Dropdown>
+
+               
 
             </div>
         )

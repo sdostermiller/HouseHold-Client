@@ -1,9 +1,7 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Outlet,
 } from "react-router-dom";
 import PrimeReact from "primereact/api";
@@ -18,8 +16,16 @@ import logo from "../assets/hhlogo-black.png";
 import Login from '../Auth/Login';
 import MyHouse from '../House/MyHouse';
 import ListCreate from '../List/ListCreate';
+import OurLists from '../List/OurLists';
+import OurItems from '../Item/OurItems';
 import ItemCreate from '../Item/ItemCreate';
 import Account from '../Auth/Account'
+import Register from '../Auth/Register';
+import Items from "../Item/HouseItems";
+import Lists from '../List/Lists';
+import DisplayList from '../List/DisplayList';
+  
+
 
 interface DockProps {
   sessionToken: any;
@@ -35,31 +41,31 @@ export class HouseDock extends React.Component<DockProps, IDock> {
       nodeService: null,
       dockItems: [
         {
-          label: "Add List",
-          icon: "pi pi-list",
+          label: "My House",
+          icon: "pi pi-home",
           command: () => {
-            window.location.href = "/listcreate";
+            window.location.href = "/";
           },
         },
         {
-          label: "Add Item",
-          icon: "pi pi-pencil",
+          label: "My Account",
+          icon: "pi pi-user",
           command: () => {
-            window.location.href = "/itemcreate";
+            window.location.href = "/account";
           },
         },
         {
-          label: "My Lists",
+          label: "Our Lists",
           icon: "pi pi-user-plus",
           command: () => {
-            window.location.href = "/mylists";
+            window.location.href = "/lists";
           },
         },
         {
-          label: "My Items",
+          label: "Our Items",
           icon: "pi pi-user-edit",
           command: () => {
-            window.location.href = "/myitems";
+            window.location.href = "/items";
           },
         },
       ],
@@ -74,19 +80,24 @@ export class HouseDock extends React.Component<DockProps, IDock> {
           icon: "pi pi-angle-down",
           items: [
             {
+              label: "My House",
+              icon: "pi pi-home",
+              command: () => {
+                window.location.href = "/myhouse"
+              }
+            },
+            {
               label: "My Account",
               icon: "pi pi-user",
               command: () => {
-                window.open("/account", ".dock-window");
+                window.location.href = "/account";
               },
             },
             {
               label: "Login/Change User",
               icon: "pi pi-user-edit",
-              command: () => {
-                {
+              command: () => { 
                   window.location.href = "/login";
-                }
               },
             },
           ],
@@ -112,6 +123,9 @@ export class HouseDock extends React.Component<DockProps, IDock> {
     this.itemTemplate = this.itemTemplate.bind(this);
   }
 
+  openLogin(){
+    window.location.href="/login"
+  }
   itemTemplate(item: {
     itemImageSrc: string | undefined;
     alt: string | undefined;
@@ -137,21 +151,30 @@ export class HouseDock extends React.Component<DockProps, IDock> {
   render() {
     const start = (
       <a href="/">
-        <img src={logo} />
+        <img src={logo} alt="HouseHold logo" />
       </a>
     );
     const end = (
       <React.Fragment>
+        <Button 
+          icon="pi pi-sign-in"
+          label='LogIn'
+          className="p-button-rounded p-button-text"
+          tooltip="Login/Register"
+          tooltipOptions={{ position: "bottom" }} 
+          onClick={this.openLogin}
+           />
+
         <Button
           icon="pi pi-sign-out"
-          label=" "
+          label="Log Out"
           className="p-button-rounded p-button-text "
           tooltip="Log Out"
           tooltipOptions={{ position: "bottom" }}
           onClick={this.props.clearToken}
         />
-      </React.Fragment>
-    );
+        </React.Fragment>
+    )
 
     return (
       <div>
@@ -168,18 +191,27 @@ export class HouseDock extends React.Component<DockProps, IDock> {
                 +15 bottom-55" at="center top" showDelay={150}*/ position="right"
             />
 
-            <Menubar model={this.state.menubarItems} start={start} end={end} />
+            <Menubar start={start} end={end} />
        
           <Dock model={this.state.dockItems} position="left" />
-     
+          
+          <div className="component-window">
           <Routes>
                     <Route path='/' element={<MyHouse sessionToken={this.props.sessionToken} />} />
                     <Route path='/account' element={<Account sessionToken={this.props.sessionToken} />} />
                     <Route path='/listcreate' element={<ListCreate sessionToken={this.props.sessionToken} />} />
-                    {/* <Route path='/itemcreate' element={<ItemCreate sessionToken={this.props.sessionToken} />} /> */}
+                    <Route path='/itemcreate' element={<ItemCreate sessionToken={this.props.sessionToken} />} />
                     <Route path='/login' element={<Login clearToken={this.props.clearToken} updateToken={this.props.updateToken} />} />
+                    <Route path='/register' element={<Register updateToken={this.props.updateToken} />} />
+                    <Route path='/ourlists' element={<OurLists sessionToken={this.props.sessionToken} />} />
+                    <Route path='/ouritems' element={<OurItems sessionToken={this.props.sessionToken} />} />
+                    <Route path='/items' element={<Items sessionToken={this.props.sessionToken} />} />
+                    <Route path='/lists' element={<Lists sessionToken={this.props.sessionToken} />} />
+                    <Route path='/displaylist/:id' element={<DisplayList sessionToken={this.props.sessionToken}  />} />
                 </Routes>
                 <Outlet /> 
+                </div>
+          
             </div>
         </div>
       </div>

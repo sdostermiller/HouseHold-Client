@@ -6,7 +6,6 @@
     width: 100%;
     height: 450px;
     position: relative;
-   
 }
 
 .dock .p-dock {
@@ -14,23 +13,18 @@
 }
 
 
-.dock .dock-advanced .p-dialog-mask, .dock-demo .dock-advanced .p-galleria-mask, .dock-demo .dock-advanced .p-galleria-mask .p-galleria-item-nav, .dock-demo .dock-advanced .p-toast {
+.dock .dock-advanced  {
     position: absolute;
 }
 
-.dock .dock-advanced .p-dialog .p-tree {
-    height: 100%;
-    border-radius: 0;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-}
 
 
 .dock .p-menubar {
     padding-top: 0;
     padding-bottom: 0;
     border-radius: 0;
+
+    
    
 }
 .dock .p-menubar .menubar-root {
@@ -56,3 +50,7 @@
     background-color: var(--surface-900);
 }
 
+.component-window {
+
+    margin-left: 100px;
+}

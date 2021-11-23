@@ -7,7 +7,7 @@ import { Button } from "primereact/button";
 import APIURL from '../../helpers/environment';
 
 interface ItemProps {
-  // sessionToken: string
+  sessionToken: string | null
 }
 
 export default class ItemCreate extends React.Component<
@@ -28,6 +28,8 @@ export default class ItemCreate extends React.Component<
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
   componentDidMount() {
     const userId = localStorage.getItem('UserId');
     const sessionToken = localStorage.getItem('sessionToken');
@@ -115,7 +117,8 @@ export default class ItemCreate extends React.Component<
             </div>
             <div className="favorite">
               <label htmlFor="itemFavorite"> Favorite? </label>
-              <ToggleButton className="p-button-rounded"
+              <ToggleButton 
+                className="p-button-rounded"
                 checked={itemFavorite}
                 onChange={(e) => this.setState({ itemFavorite: e.value})}
                 onLabel=""

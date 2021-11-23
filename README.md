@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# HouseHold (Client)
+_A collaborative list sharing app_
+---
+---
+HouseHold is a group list-sharing app designed to provide real-time updates to ongoing group lists.  Each user has access to the group's lists and can update them so that all members can see the changes.  This facilitates better access to information relevant to the group and allows better decision making without needing to collect information every time a task is completed.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The HouseHold client app is bootstrapped with React using class components and Typescript.
 
-## Available Scripts
+### Installation
 
-In the project directory, you can run:
+To install, run 'git clone https://github.com/sdostermiller/HouseHold-Client.git' from your terminal in your target folder.  The React app should be included in the repository, but you will need to run 'npm update' to retrieve the included packages and dependencies.  
 
-### `npm start`
+If you do not have node installed, you can find instructions and downloads here: [Node.js] (https://nodejs.org/ "Node.js")
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Styling
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The app was styled using [PrimeReact]: (https://www.primefaces.org/primereact/showcase/#/ "PrimeReact") with modifications.
 
-### `npm test`
+### Wireframe
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The prototype wireframe can be found here: [HouseHold wireframe](https://xd.adobe.com/view/35df119e-ed1d-4cae-b617-e8717091ae20-608c/ "Adobe Xd Wireframe")
 
-### `npm run build`
+### Use
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The prototype is a simple design meant for easy access.  Users can add items, assign them to lists, and edit lists.  All users in a group (Household) can see and collaborate on the group lists. There are three levels of user: Guest (read only), Member (can edit lists and items), and Head (can remove members from the house and edit userRoles).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Client-->server routing is provided in the ./helpers/environment file and optimized for deployment on Heroku.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Server build can be found on Github [HouseHold server repository](https://github.com/sdostermiller/HouseHold-Server "Github Repository")
 
-### `npm run eject`
+### Planned improvements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Version 2.0 will include:
+* support for items being utilized in multiple lists
+* addition of aisles/categories within lists
+* color coding of categories/groups for easy access
+* search and sorting functions
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+------
+_This prototype was developed as a Web Development project for Eleven Fifty Academy_
+&copy Shanna Ostermiller 2021
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

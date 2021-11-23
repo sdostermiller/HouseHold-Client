@@ -1,11 +1,13 @@
 import React from "react";
-import { IList, ListDrop } from "../../Interfaces";
+import { IList } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import APIURL from '../../helpers/environment';
 
-interface ListProps {sessionToken: string| null}
+interface ListProps {
+  sessionToken: string| null
+}
 
 export default class ListCreate extends React.Component<
   ListProps,
@@ -18,20 +20,37 @@ export default class ListCreate extends React.Component<
       listName: "",
       listType: "",
       userId: "",
-      sessionToken: "",
       selectedType: null,
       types: [
-        "Grocery",
-        "Hardware",
-        "Clothing",
-        "Pet Supplies",
-        "Home Goods",
-        "Miscellaneous",
+        {
+          label: "Grocery",
+          value: "Grocery"
+        },
+        {
+          label: "Hardware",
+          value: "Hardware"
+        },
+        {
+          label: "Clothing",
+          value: "Clothing"
+        },
+        {
+          label: "Pet Supplies",
+          value: "Pet Supplies"
+        },
+        {
+          label: "Home Goods",
+          value: "Home Goods"
+        },
+        {
+          label: "Other",
+          value: "Other"
+        }
       ],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onTypeChange = this.onTypeChange.bind(this);
+
   }
 
   
@@ -60,9 +79,6 @@ export default class ListCreate extends React.Component<
       .catch((err) => console.log(err));
   };
 
-  onTypeChange(e: any) {
-    this.setState({ selectedType: e.listType });
-  }
 
   render() {
     const { listName } = this.state;
@@ -80,7 +96,7 @@ export default class ListCreate extends React.Component<
               <span className="p-float-label">
                 <InputText
                   value={listName}
-                  name="houseName"
+                  name="listName"
                   onChange={(e) => this.setState({ listName: e.target.value })}
                 />
 
@@ -89,10 +105,11 @@ export default class ListCreate extends React.Component<
             </div>
             <div className="listType">
               <Dropdown
-                value={this.state.selectedType}
+                value={this.state.listType}
                 options={this.state.types}
-                onChange={this.onTypeChange}
-                optionLabel="listType"
+                onChange={(e) => this.setState({ listType: e.target.value })}
+                optionLabel="label"
+                optionValue="value"
                 placeholder="Select a List Type"
               />
             </div>
