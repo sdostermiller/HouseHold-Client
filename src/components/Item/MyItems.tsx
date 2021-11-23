@@ -69,52 +69,12 @@ fetchItems = () =>{
  componentDidMount =()=> {
    this.fetchItems();
  }
-  // fetchThisItem() {
-  //   let sessionToken = this.props.sessionToken
-  //     ? this.props.sessionToken
-  //     : localStorage.getItem("token");
+ 
+ 
 
-  //   fetch(`${APIURL}/item/${item.id}`, {
-  //     method: "GET",
-  //     headers: new Headers({
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${sessionToken}`,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((itemData) => {
-  //       this.setState({
-  //         thisItem: itemData,
-  //       });
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
 
-  editUpdateItem (item: any) {
-    this.setState({setUpdateActive: true})
-  }
 
-  updateOn() {
-    this.setState({
-      setUpdateActive: true
-    })
-  }
-
-  updateOff() {
-    this.setState({
-      setUpdateActive: false
-    })
-  }
-
-  updateItem() {
-    this.setState({
-      thisItem: this.state.thisItem
-    })
-  }
-
-  // componentWillMount() {
-  //   this.fetchThisItem();
-  // }
+  
   
 
   render() {

@@ -24,7 +24,7 @@ import Register from '../Auth/Register';
 import Items from "../Item/HouseItems";
 import Lists from '../List/Lists';
 import DisplayList from '../List/DisplayList';
-  
+import Splash from '../splash';
 
 
 interface DockProps {
@@ -150,7 +150,7 @@ export class HouseDock extends React.Component<DockProps, IDock> {
 
   render() {
     const start = (
-      <a href="/">
+      <a href="/myhouse">
         <img src={logo} alt="HouseHold logo" />
       </a>
     );
@@ -197,7 +197,8 @@ export class HouseDock extends React.Component<DockProps, IDock> {
           
           <div className="component-window">
           <Routes>
-                    <Route path='/' element={<MyHouse sessionToken={this.props.sessionToken} />} />
+                    <Route path='/' element={<Splash /> } />
+                    <Route path='/myhouse' element={<MyHouse sessionToken={this.props.sessionToken} />} />
                     <Route path='/account' element={<Account sessionToken={this.props.sessionToken} />} />
                     <Route path='/listcreate' element={<ListCreate sessionToken={this.props.sessionToken} />} />
                     <Route path='/itemcreate' element={<ItemCreate sessionToken={this.props.sessionToken} />} />
