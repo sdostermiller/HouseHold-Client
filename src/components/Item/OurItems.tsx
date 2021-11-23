@@ -46,12 +46,12 @@ export default class OurItems extends React.Component<
       : localStorage.getItem("token");
 
 
-      if (localStorage.getItem('token')){
-        console.log("Account page loaded", sessionToken)
-        } else if (localStorage.getItem('token')== undefined){ alert("We don't know you...please log in.")
-        window.location.href='/login'}
-          else { alert("We don't know you...please log in.")
-        window.location.href='/login'}
+      // if (localStorage.getItem('token')){
+      //   console.log("Account page loaded", sessionToken)
+      //   } else if (localStorage.getItem('token')== undefined){ alert("We don't know you...please log in.")
+      //   window.location.href='/login'}
+      //     else { alert("We don't know you...please log in.")
+      //   window.location.href='/login'}
     
     
       
