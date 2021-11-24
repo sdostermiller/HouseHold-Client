@@ -65,7 +65,8 @@ export interface IHouseList {
   houseList: [
   ],
   house: any,
-  editUserHouse: string
+  editUserHouse: string,
+
 }
 
 export interface IList {
@@ -273,17 +274,9 @@ export interface IEditUser {
       label: string;
       value: string;
     }
-  ];
-  // userData: {
-  //   id: string,
-  //   email: string,
-  //   userName: string,
-  //   passwordhash: string,
-  //   firstName: string,
-  //   lastName: string,
-  //   houseId: string,
-  //   userRole: string
-  // }
+  ],
+  dialog: boolean,
+  setUpdateActive: boolean
 }
 
 export interface IHouseMembers {
@@ -338,7 +331,7 @@ export interface IOurItems {
 }
 
 export interface IMyLists {
-  myLists: [
+  theseLists: [
     {
       id: string;
       listName: string;
@@ -363,6 +356,17 @@ export interface IEditItem {
 export interface IEditList {
   editListName: string,
   editListType: string
+  dialog: boolean,
+  setUpdateActive: boolean,
+  selectedType: string | null;
+  types: [
+    { label: string; value: string },
+    { label: string; value: string },
+    { label: string; value: string },
+    { label: string; value: string },
+    { label: string; value: string },
+    { label: string; value: string }
+  ];
 }
 
 export interface IItemDisplay {

@@ -1,10 +1,14 @@
 import React from 'react';
-import { isThisTypeNode } from 'typescript';
 import { IListMap } from '../../Interfaces';
+import APIURL from '../../helpers/environment'
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import EditList from './EditList';
 
 interface ListMapProps {
-    sessionToken: string | null;
-    ourlists: any;
+  theseLists: any,
+  sessionToken: string | null,
+  fetch: Function
 }
 
 export default class ListMap extends React.Component<ListMapProps, IListMap> {
@@ -15,32 +19,68 @@ export default class ListMap extends React.Component<ListMapProps, IListMap> {
             list: {
                 listName: '',
                 listType: ''
-            }
+            },
+           
         };
     }
+    deleteItem(list: any) {
+        console.log("delete list:", list);
+    
+        let sessionToken = this.props.sessionToken
+          ? this.props.sessionToken
+          : localStorage.getItem("token");
 
-// listMapper = () => {
-//      this.ourlists.map((ourlist, index) =>{
-//         return(
-//             <tr key={index}></tr>
-//             <td><h3>{ourlist.listName}</h3>
-//                 <hr />
-//                 <p>{ourlist.listType}</p> </td>
-//              <td>   
-//                 <Button icon='pi pi-pencil' onClick={{</editlist()}}
-//         )
-//     })
-// }
+          fetch(`${APIURL}/item/delete/${list}.id}`, {
+            method: "DELETE",
+            headers: new Headers({
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionToken}`,
+            }),
+          }).then(() => this.props.fetch());
+        }
 
+
+    
 render() {
 
 return (
     <div>
-    <h3>Our Lists</h3>
-    <hr />
+    
+    {this.props.theseLists.map((list: any, index: React.Key) =>
+            <div className="p-shadow-3" key={index}>
+                <Card>
+                    <table>
+                <tr>
+                    {list.listName}</tr>
+                <tr>
+                    <td>
+                    {list.listType}
+                    </td>
+                        <td><td>
+                        <EditList
+                  fetch={this.props.fetch}
+                  sessionToken={this.props.sessionToken}
+                  list={list}
+                />
+                    </td>
+                    <td>
+                      <Button
+                        className="p-button-rounded"
+                        onClick={() => {
+                            this.deleteItem(list);
+                          }}
+                        icon="pi pi-trash"
+                        style={{ width: "2em", height: "2em" }}
+                      />
+                    </td>
+                        </td>
+                    </tr>
+                    </table></Card></div>)}
+                
+    
+        </div>
     
 
-    </div>
 )
 
     

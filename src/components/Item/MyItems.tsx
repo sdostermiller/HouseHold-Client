@@ -1,10 +1,6 @@
 import React from "react";
 import { IMyItems } from "../../Interfaces";
 import APIURL from "../../helpers/environment";
-import { Button } from "primereact/button";
-import { Card } from "primereact/card";
-import EditItem from "../Item/EditItem";
-import { ToggleButton } from "primereact/togglebutton";
 import ItemMap from './ItemMap'
 
 interface MyItemsProps {
@@ -81,7 +77,6 @@ fetchItems = () =>{
     return (
       <div>
         
-        <h2>My Items</h2>
         <ItemMap  theseItems={this.state.theseItems}
     sessionToken={this.props.sessionToken} fetch={this.fetchItems} />
 

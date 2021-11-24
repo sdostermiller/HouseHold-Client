@@ -1,7 +1,7 @@
 import React from "react";
 import { IHome } from "../../Interfaces";
 import OurLists from "../List/OurLists";
-import HouseList from "../House/HouseList";
+// import HouseList from "../House/HouseList";
 import OurItems from "../Item/OurItems";
 import HouseMembers from "../House/HouseMembers";
 
@@ -30,7 +30,7 @@ export default class MyHouse extends React.Component<HouseProps, IHome> {
       
   if (localStorage.getItem('token')){
     console.log("Account page loaded", sessionToken)
-    } else if (localStorage.getItem('token')== undefined){ alert("We don't know you...please log in.")
+    } else if (localStorage.getItem('token')=== undefined){ alert("We don't know you...please log in.")
     window.location.href='/login'}
       else { alert("We don't know you...please log in.")
     window.location.href='/login'}

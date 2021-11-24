@@ -4,9 +4,8 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { Link } from 'react-router-dom';
 import { IEditUser } from '../../Interfaces';
-import HouseList  from '../House/HouseList';
+// import HouseList  from '../House/HouseList';
 
 interface EditUserProps {
     sessionToken: string | null;
@@ -50,6 +49,8 @@ export default class EditUser extends React.Component<EditUserProps, IEditUser> 
             email: '',
             passwordhash: '',
             selectedRole: null,
+            dialog: true,
+             setUpdateActive: false,
             
             
       
@@ -114,29 +115,40 @@ onHide() {
 onRoleChange(e: any) {
     this.setState({ selectedRole: e.value });
 }
-
+toggle = () => this.setState({dialog: !this.state.dialog});
+  
 
 render() { 
     return ( 
         <div>
-            <Dialog header="Edit Account Information" visible={this.state.displayResponsive} onHide={() => this.onHide()} breakpoints={{'960px': '75vw'}} style={{width: '50vw'}}>
+
+            <Button
+              label="Update"
+              icon="pi pi-user-edit"
+              onClick={(this.toggle)} />
+            <Dialog 
+                header="Edit Account Information" 
+                visible={!this.state.dialog} 
+                onHide={() => this.toggle} 
+                breakpoints={{'960px': '75vw'}} 
+                style={{width: '50vw'}}>
 
             <form onSubmit={(event) => {this.userUpdate(event); this.onHide()}}>
 
             <span className="p-float-label">
-                <InputText onChange={(e) => this.setState({firstName: e.target.value})} name="firstName" />
-                <label htmlFor="firstName">First Name</label>
+                <InputText onChange={(e) => this.setState({editFirstName: e.target.value})} name="editFirstName" />
+                <label htmlFor="editFirstName">First Name</label>
             </span>
             <span className="p-float-label">
-                <InputText onChange={(e) => this.setState({lastName: e.target.value})} name="lastName" />
-                <label htmlFor="lastName">Last Name</label>
+                <InputText onChange={(e) => this.setState({editLastName: e.target.value})} name="editLastName" />
+                <label htmlFor="editLastName">Last Name</label>
             </span>
             <span className='p-float-label'>
-                <InputText onChange={(e) => this.setState({userName: e.target.value})} name="userName" />
-                <label htmlFor="userName">UserName</label>
+                <InputText onChange={(e) => this.setState({editUserName: e.target.value})} name="editUserName" />
+                <label htmlFor="editUserName">UserName</label>
             </span>
             <span className='p-float-label'>
-                <InputText onChange={(e) => this.setState({email: e.target.value})} name="email" />
+                <InputText onChange={(e) => this.setState({editEmail: e.target.value})} name="editEmail" />
                 <label htmlFor="email">Email</label>
                 </span>
             <Dropdown value={this.state.userRole}

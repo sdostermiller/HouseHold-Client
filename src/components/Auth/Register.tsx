@@ -1,13 +1,14 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
+import APIURL from "../../helpers/environment";
 import { IRegister, RegisterAlerts } from "../../Interfaces";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import APIURL from '../../helpers/environment';
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from "primereact/dropdown";
+import { Card } from "primereact/card";
 
 type RegisterProps = {
   updateToken(newToken: string): string;
-}
+};
 
 export default class Register extends React.Component<
   RegisterProps,
@@ -29,17 +30,17 @@ export default class Register extends React.Component<
       roles: [
         {
           label: "Guest",
-          value: "Guest"
+          value: "Guest",
         },
         {
           label: "Member",
-          value: "Member"
+          value: "Member",
         },
         {
           label: "Head",
-          value: "Head"
-        }
-      ]
+          value: "Head",
+        },
+      ],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sendAccount = this.sendAccount.bind(this);
@@ -88,7 +89,7 @@ export default class Register extends React.Component<
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-    
+
         this.props.updateToken(data.sessionToken);
         this.setState({
           successCheck: true,
@@ -97,99 +98,117 @@ export default class Register extends React.Component<
       });
   };
 
-  updateEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      email: e.target.value
-    })
-  }
+  
 
   render() {
-    // const {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   passwordhash,
-    //   userName,
-    //   userRole,
-    //   houseId,
-    // } = this.state;
-
     return (
       <div>
-        <div className="register">
+        <div className="register p-grid  p-fluid p-formgrid p-justify-around p-align-center p-p-6">
+          <Card className="p-shadow-3 p-col-6 p-p-3">
+          <div>
+          <div className="p-field p-col">
           <h1>Register</h1>
+          </div>
+          <div >
           <form
-            onSubmit={(event) => {
-              this.handleSubmit(event);
-              this.sendAccount();
-              }}>
-            <div className="FormGroup">
-              <span className="p-float-label">
-                <InputText
-                  onChange={(e) => this.setState({ firstName: e.target.value })}
-                  name="firstName"
-                />
-                <label htmlFor="firstName">First Name</label>
-              </span>
-            </div>
-            <div className="FormGroup">
-              <span className="p-float-label">
-                <InputText
-                  onChange={(e) => this.setState({ lastName: e.target.value })}
-                  name="lastName"
-                />
-                <label htmlFor="lastName">Last Name</label>
-              </span>
-            </div>
-            <div className="FormGroup">
-              <span className="p-float-label">
-                <InputText
-                  onChange={(e) => this.setState({ userName: e.target.value })}
-                  name="userName"
-                />
-                <label htmlFor="userName">UserName</label>
-              </span>
-            </div>
-            <div className="FormGroup">
-              <span className="p-float-label">
-                <InputText
-                  onChange={this.updateEmail}
-                  name="email"
-                  type="email"
-                />
-                <label htmlFor="email">Email</label>
-              </span>
-            </div>
-            <div className="FormGroup">
-              <span className="p-float-label">
-                <InputText
-                  onChange={(e) =>
-                    this.setState({ passwordhash: e.target.value })
-                  }
-                  name="password"
-                />
-                <label htmlFor="password">Password</label>
-              </span>
-            </div>
-            <div className="FormGroup">
-              <div className="userRole">
-              <label htmlFor="userRole">House Role</label>
-                <Dropdown value={this.state.userRole}
-                  options={this.state.roles}
-                  onChange={(e) => this.setState({ userRole: e.target.value })}
-                  optionLabel="label"
-                  optionValue="value"
-                  placeholder="Select a User Role" ></Dropdown>
-            </div></div>
+          onSubmit={(event) => {
+          this.handleSubmit(event);
+          this.sendAccount();
+        }}>
+          <div className="p-formgroup-inline">
+          <div className="p-field">
+          <span className="p-float-label">
+          <InputText
+          onChange={(e) =>
+          this.setState({ firstName: e.target.value })
+        }
+          name="firstName"
+          />
+          <label htmlFor="firstName">First Name</label>
+          </span>
+          </div>
+          <div className="p-field">
+          <span className="p-float-label">
+          <InputText
+          onChange={(e) =>
+          this.setState({ lastName: e.target.value })
+        }
+          name="lastName"
+          />
+          <label htmlFor="lastName">Last Name</label>
+          </span>
+          </div>
+          </div>
+          <div className="p-formgroup-inline">
+          <div className="p-field">
+          <span className="p-float-label">
+          <InputText
+          onChange={(e) =>
+          this.setState({ userName: e.target.value })
+        }
+          name="userName"
+          />
+          <label htmlFor="userName">UserName</label>
+          </span>
+          </div>
+          <div className="p-field">
+          <span className="p-float-label">
+          <InputText
+          onChange={(e) =>
+            this.setState({ email: e.target.value })
+          }
+          name="email"
+          type ="email"
+          />
+          <label htmlFor="email">Email</label>
+          </span>
+          </div>
+          </div>
+          <div className="p-formgroup-inline">
+          <div className="p-field">
+          <span className="p-float-label">
+          <InputText
+          onChange={(e) =>
+          this.setState({ passwordhash: e.target.value })
+        }
+          name="password"
+          />
+          <label htmlFor="password">Password</label>
+          </span>
+          </div>
+          <div className="p-fluid">
+          <div className="p-field p-grid">
+          <label htmlFor="userRole" className="p-col">House Role</label>
+          <Dropdown
+          value={this.state.userRole}
+          options={this.state.roles}
+          onChange={(e) =>
+          this.setState({ userRole: e.target.value })
+        }
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select a User Role"
+          ></Dropdown>
+          </div>
+          </div>
+          </div>
+          <br />
 
-            <br />
-
-            <Button label="Register" icon="pi pi-user-plus" type="submit" />
+          <Button
+          label="Register"
+          icon="pi pi-user-plus"
+          type ="submit"
+          />
           </form>
+          <br />
           <hr />
-          Need to log in to your account? <a href="/login">Login</a>
+
+          Need to log in to your account?<a href="/login">Login</a>
+          </div>
         </div>
-      </div>
+      </Card>
+        </div >
+      </div >
     );
   }
 }

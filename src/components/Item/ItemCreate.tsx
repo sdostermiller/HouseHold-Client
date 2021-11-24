@@ -1,10 +1,11 @@
 import React from "react";
+import APIURL from '../../helpers/environment';
 import { ICreateItem } from "../../Interfaces";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { ToggleButton } from "primereact/togglebutton";
 import { Button } from "primereact/button";
-import APIURL from '../../helpers/environment';
+import { Card } from 'primereact/card';
 
 interface ItemProps {
   sessionToken: string | null
@@ -30,17 +31,13 @@ export default class ItemCreate extends React.Component<
   }
 
 
-  componentDidMount() {
-    const userId = localStorage.getItem('UserId');
-    const sessionToken = localStorage.getItem('sessionToken');
-    this.setState({
-      userId,
-      sessionToken
-    });
-  }
-
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    let sessionToken = this.props.sessionToken
+    ? this.props.sessionToken
+    : localStorage.getItem("token");
+
     fetch(`${APIURL}/item/create`, {
       method: "POST",
       body: JSON.stringify({
@@ -51,7 +48,7 @@ export default class ItemCreate extends React.Component<
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.state.sessionToken}`
+        'Authorization': `Bearer ${sessionToken}`
       }),
     })
       .then((response) => response.json())
@@ -63,6 +60,7 @@ export default class ItemCreate extends React.Component<
           itemUrgent: this.state.itemUrgent,
           itemFavorite: this.state.itemFavorite,
         });
+        window.location.href="/items";
       })
       .catch((err) => console.log(err));
   };
@@ -73,6 +71,7 @@ export default class ItemCreate extends React.Component<
     return (
       <div>
         <div className="createItem">
+          <Card className="p-shadow-3">
           <h1>Create an Item</h1>
           <form
             onSubmit={(event) => {
@@ -132,6 +131,7 @@ export default class ItemCreate extends React.Component<
 
             <Button label="Create!" icon="pi pi-ticket" type="submit" />
           </form>
+          </Card>
         </div>
       </div>
     );

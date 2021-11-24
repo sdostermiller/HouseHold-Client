@@ -9,7 +9,7 @@ import { Button } from "primereact/button";
 
 interface EditItemProps {
   item: any,
-  sessionToken: string | null;
+  sessionToken: string | null,
   fetch: Function   
  
 }
@@ -61,6 +61,9 @@ export default class EditItem extends React.Component<
         console.log(updateData);
        this.props.fetch()
 
+      }).then(() => {
+        this.toggle();
+        this.editThis();
       })
       .catch((err) => console.log(err));
   };

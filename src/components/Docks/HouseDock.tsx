@@ -24,7 +24,7 @@ import Register from '../Auth/Register';
 import Items from "../Item/HouseItems";
 import Lists from '../List/Lists';
 import DisplayList from '../List/DisplayList';
-import Splash from '../splash';
+import Splash from '../Splash/splash';
 
 
 interface DockProps {
